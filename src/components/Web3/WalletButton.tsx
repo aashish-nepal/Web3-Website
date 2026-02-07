@@ -12,6 +12,7 @@ import {
     RainbowWalletIcon,
     BraveWalletIcon,
     CoinbaseWalletIcon,
+    RabbyWalletIcon,
     GenericWalletIcon
 } from '@/components/icons/WalletIcons'
 import { WalletInstallModal } from './WalletInstallModal'
@@ -52,6 +53,13 @@ const PRIORITY_WALLETS = [
         icon: <CoinbaseWalletIcon size={24} />,
         installUrl: 'https://www.coinbase.com/wallet/downloads',
         detectKey: 'isCoinbaseWallet'
+    },
+    {
+        id: 'rabby',
+        name: 'Rabby Wallet',
+        icon: <RabbyWalletIcon size={24} />,
+        installUrl: 'https://rabby.io/',
+        detectKey: 'isRabby'
     }
 ] as const
 
@@ -155,32 +163,52 @@ export function WalletButton() {
         })
     }
 
-    const getWalletIcon = (connectorId: string, connectorName: string) => {
-        const id = connectorId.toLowerCase()
-        const name = connectorName.toLowerCase()
+    const getWalletIcon = (connector: any) => {
+        const connectorId = connector.id?.toLowerCase() || ''
+        const connectorName = connector.name?.toLowerCase() || ''
 
-        if (id.includes('metamask') || name.includes('metamask')) return <MetaMaskIcon size={24} />
-        if (id.includes('phantom') || name.includes('phantom')) return <PhantomWalletIcon size={24} />
-        if (id.includes('rainbow') || name.includes('rainbow')) return <RainbowWalletIcon size={24} />
-        if (id.includes('brave') || name.includes('brave')) return <BraveWalletIcon size={24} />
-        if (id.includes('coinbase') || name.includes('coinbase')) return <CoinbaseWalletIcon size={24} />
-        if (id.includes('walletconnect') || name.includes('walletconnect')) return <WalletConnectIcon size={24} />
+        // First, try to use the connector's own icon (EIP-6963 wallets provide this)
+        if (connector.icon) {
+            return (
+                <img
+                    src={connector.icon}
+                    alt={connector.name || 'Wallet'}
+                    className="w-6 h-6 rounded"
+                    onError={(e) => {
+                        // Fallback to generic icon if image fails to load
+                        e.currentTarget.style.display = 'none'
+                    }}
+                />
+            )
+        }
+
+        // Fallback to predefined icons for known wallets
+        if (connectorId.includes('metamask') || connectorName.includes('metamask')) return <MetaMaskIcon size={24} />
+        if (connectorId.includes('phantom') || connectorName.includes('phantom')) return <PhantomWalletIcon size={24} />
+        if (connectorId.includes('rainbow') || connectorName.includes('rainbow')) return <RainbowWalletIcon size={24} />
+        if (connectorId.includes('brave') || connectorName.includes('brave')) return <BraveWalletIcon size={24} />
+        if (connectorId.includes('coinbase') || connectorName.includes('coinbase')) return <CoinbaseWalletIcon size={24} />
+        if (connectorId.includes('rabby') || connectorName.includes('rabby')) return <RabbyWalletIcon size={24} />
+        if (connectorId.includes('walletconnect') || connectorName.includes('walletconnect')) return <WalletConnectIcon size={24} />
 
         return <GenericWalletIcon size={24} />
     }
 
-    const getWalletName = (connectorId: string, connectorName: string) => {
+    const getWalletName = (connector: any) => {
+        const connectorName = connector.name
+        const connectorId = connector.id?.toLowerCase() || ''
+
         if (connectorName && connectorName !== 'Injected' && connectorName !== 'Unknown') {
             return connectorName
         }
 
-        const id = connectorId.toLowerCase()
-        if (id.includes('metamask')) return 'MetaMask'
-        if (id.includes('phantom')) return 'Phantom'
-        if (id.includes('rainbow')) return 'Rainbow'
-        if (id.includes('brave')) return 'Brave Wallet'
-        if (id.includes('coinbase')) return 'Coinbase Wallet'
-        if (id.includes('walletconnect')) return 'WalletConnect'
+        if (connectorId.includes('metamask')) return 'MetaMask'
+        if (connectorId.includes('phantom')) return 'Phantom'
+        if (connectorId.includes('rainbow')) return 'Rainbow'
+        if (connectorId.includes('brave')) return 'Brave Wallet'
+        if (connectorId.includes('coinbase')) return 'Coinbase Wallet'
+        if (connectorId.includes('rabby')) return 'Rabby Wallet'
+        if (connectorId.includes('walletconnect')) return 'WalletConnect'
 
         return 'Browser Wallet'
     }
@@ -336,8 +364,8 @@ export function WalletButton() {
                                     <div className="grid grid-cols-3 gap-2">
                                         {otherWallets.map((connector) => {
                                             const isLoading = isPending && connectingId === connector.id
-                                            const icon = getWalletIcon(connector.id, connector.name)
-                                            const name = getWalletName(connector.id, connector.name)
+                                            const icon = getWalletIcon(connector)
+                                            const name = getWalletName(connector)
 
                                             return (
                                                 <button

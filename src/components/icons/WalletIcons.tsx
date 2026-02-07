@@ -557,3 +557,33 @@ export function SafeWalletIcon({ className = '', size = 32 }: IconProps) {
     )
 }
 
+/**
+ * Rabby Wallet Icon
+ * Official Rabby blue rabbit logo
+ */
+export function RabbyWalletIcon({ className = '', size = 32 }: IconProps) {
+    return (
+        <svg
+            width={size}
+            height={size}
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className={className}
+        >
+            <rect width="40" height="40" rx="8" fill="#8697FF" />
+            <path
+                d="M12 18C12 18 13 14 16 12C16 12 15 14 16 16C16 16 18 14 20 14C22 14 24 16 24 16C25 14 24 12 24 12C27 14 28 18 28 18C28 18 30 20 30 24C30 28 27 30 24 30H16C13 30 10 28 10 24C10 20 12 18 12 18Z"
+                fill="white"
+            />
+            <circle cx="17" cy="21" r="1.5" fill="#8697FF" />
+            <circle cx="23" cy="21" r="1.5" fill="#8697FF" />
+            <path
+                d="M16 25C16 25 18 26 20 26C22 26 24 25 24 25"
+                stroke="#8697FF"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+            />
+        </svg>
+    )
+}
