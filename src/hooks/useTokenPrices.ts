@@ -18,6 +18,7 @@ export interface TokenPrice {
     change24h: number
     marketCap?: number
     volume24h?: number
+    isMockData?: boolean
 }
 
 export function useTokenPrices(symbols: string[] = ['ETH', 'BTC', 'USDC']) {
@@ -27,9 +28,11 @@ export function useTokenPrices(symbols: string[] = ['ETH', 'BTC', 'USDC']) {
         ['token-prices', ...tokenIds],
         async () => {
             const prices = await getTokenPrices(tokenIds, 'usd')
-            if (!prices) return []
+            if (!prices) return { tokens: [], isMockData: false }
 
-            return tokenIds.map((id, index) => {
+            const isMockData = prices._metadata?.isMockData || false
+
+            const tokens = tokenIds.map((id, index) => {
                 const priceData = prices[id]
                 if (!priceData) return null
 
@@ -40,8 +43,11 @@ export function useTokenPrices(symbols: string[] = ['ETH', 'BTC', 'USDC']) {
                     change24h: priceData.usd_24h_change || 0,
                     marketCap: priceData.usd_market_cap,
                     volume24h: priceData.usd_24h_vol,
+                    isMockData,
                 }
             }).filter(Boolean) as TokenPrice[]
+
+            return { tokens, isMockData }
         },
         {
             refreshInterval: 60000, // Refresh every 60 seconds
@@ -50,7 +56,8 @@ export function useTokenPrices(symbols: string[] = ['ETH', 'BTC', 'USDC']) {
     )
 
     return {
-        prices: data || [],
+        prices: data?.tokens || [],
+        isMockData: data?.isMockData || false,
         isLoading,
         error,
         refresh: mutate,

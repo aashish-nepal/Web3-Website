@@ -3,7 +3,6 @@
 import { useAccount, useBalance, useChainId, useDisconnect, useSwitchChain, useEnsName } from 'wagmi'
 import { useState, useEffect } from 'react'
 import { formatBalance, getChainName, getChainIcon, getExplorerUrl } from '@/lib/utils'
-import type { SupportedChainId } from '@/lib/wagmi'
 
 /**
  * Advanced Web3 hook that abstracts wallet state and provides utility functions
@@ -71,14 +70,14 @@ export function useWeb3() {
      * Switch to a specific chain
      * Handles errors gracefully
      */
-    const switchToChain = async (targetChainId: SupportedChainId) => {
+    const switchToChain = async (targetChainId: number) => {
         if (!switchChain) {
             console.error('Chain switching not supported')
             return false
         }
 
         try {
-            await switchChain({ chainId: targetChainId })
+            await switchChain({ chainId: targetChainId as any })
             return true
         } catch (error) {
             console.error('Failed to switch chain:', error)

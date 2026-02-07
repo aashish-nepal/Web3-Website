@@ -37,7 +37,10 @@ export async function GET(request: NextRequest) {
             timeout: 5000, // 5 second timeout
         })
 
-        return NextResponse.json(response.data)
+        return NextResponse.json({
+            ...response.data,
+            _metadata: { isMockData: false }
+        })
     } catch (error: any) {
         // Determine error type for better logging
         const errorType = error.code === 'ENOTFOUND' || error.code === 'ETIMEDOUT'
@@ -69,6 +72,7 @@ export async function GET(request: NextRequest) {
                 usd_market_cap: 24800000000,
                 usd_24h_vol: 4900000000
             },
+            _metadata: { isMockData: true }
         })
     }
 }

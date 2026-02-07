@@ -16,7 +16,7 @@ export function MeshGradient() {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const mouseRef = useRef({ x: 0.5, y: 0.5 })
     const targetMouseRef = useRef({ x: 0.5, y: 0.5 })
-    const animationFrameRef = useRef<number>()
+    const animationFrameRef = useRef<number | undefined>(undefined)
 
     useEffect(() => {
         const canvas = canvasRef.current

@@ -4,9 +4,12 @@ import { motion } from 'framer-motion'
 import { ChevronDown, Check, Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { useWeb3 } from '@/hooks/useWeb3'
-import { supportedChains, type SupportedChainId } from '@/lib/wagmi'
+import { mainnet, polygon, arbitrum, optimism, base } from 'wagmi/chains'
 import { getChainName, getChainIcon } from '@/lib/utils'
 import { cn } from '@/lib/utils'
+
+// Supported chains
+const supportedChains = [mainnet, polygon, arbitrum, optimism, base]
 
 /**
  * ChainSwitcher - Network switching component
@@ -33,7 +36,7 @@ export function ChainSwitcher() {
         }
 
         setSwitchingTo(targetChainId)
-        const success = await switchToChain(targetChainId as SupportedChainId)
+        const success = await switchToChain(targetChainId)
 
         if (success) {
             setTimeout(() => {
