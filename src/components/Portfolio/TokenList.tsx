@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useTokenBalances } from '@/hooks/useTokenBalances'
 import { fadeInUp } from '@/lib/animations'
 import { formatNumber } from '@/lib/utils'
-import { Loader2, TrendingUp, TrendingDown, ExternalLink } from 'lucide-react'
+import { Loader2, TrendingUp, TrendingDown } from 'lucide-react'
 
 interface TokenListProps {
     chainId?: number
@@ -64,7 +64,7 @@ export function TokenList({ chainId = 1 }: TokenListProps) {
             {/* Token Rows */}
             <div className="divide-y divide-white/10">
                 {sortedBalances.map((token, index) => {
-                    const priceChange = (Math.random() * 20 - 10) // Placeholder - would come from API
+                    const priceChange = 3.5 // Placeholder - would come from API
                     const isPositive = priceChange >= 0
 
                     return (

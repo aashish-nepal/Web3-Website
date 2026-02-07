@@ -1,0 +1,76 @@
+/* Additional Animation Utilities */
+.animate-float-slow {
+    animation: float-slow 20s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+    animation: glow-pulse 4s ease-in-out infinite;
+}
+
+.animate-rotate-slow {
+    animation: rotate-slow 30s linear infinite;
+}
+
+.animate-scale-pulse {
+    animation: scale-pulse 3s ease-in-out infinite;
+}
+
+.animate-slide-up {
+    animation: slide-up 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+    animation: slide-in-left 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+    animation: slide-in-right 0.6s ease-out;
+}
+
+/* Enhanced Glassmorphism */
+.glass-enhanced {
+    background: rgba(20, 27, 61, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Hover Glow Effects */
+.hover-glow-gold {
+    transition: all 0.3s ease;
+}
+
+.hover-glow-gold:hover {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+    border-color: rgba(212, 175, 55, 0.6);
+}
+
+.hover-glow-purple {
+    transition: all 0.3s ease;
+}
+
+.hover-glow-purple:hover {
+    box-shadow: 0 0 30px rgba(107, 78, 154, 0.4);
+    border-color: rgba(107, 78, 154, 0.6);
+}
+
+/* Parallax Layers */
+.parallax-slow {
+    transform: translateZ(-1px) scale(2);
+}
+
+.parallax-medium {
+    transform: translateZ(-0.5px) scale(1.5);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

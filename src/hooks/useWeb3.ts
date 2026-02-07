@@ -19,7 +19,7 @@ import type { SupportedChainId } from '@/lib/wagmi'
  * const { address, ensName, formattedBalance, switchToChain } = useWeb3()
  */
 export function useWeb3() {
-    const { address, isConnected, isConnecting, isDisconnected, connector } = useAccount()
+    const { address, isConnected, isConnecting, connector } = useAccount()
     const chainId = useChainId()
     const { disconnect } = useDisconnect()
     const { switchChain, isPending: isSwitchingChain } = useSwitchChain()

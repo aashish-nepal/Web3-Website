@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import { useAccount } from 'wagmi'
-import { getNFTs, getNFTMetadata } from '../lib/api/alchemy'
+import { getNFTs } from '../lib/api/alchemy'
 
 /**
  * Hook to fetch user's NFT collection
@@ -22,6 +22,18 @@ export interface NFT {
     attributes?: Array<{ trait_type: string; value: string }>
 }
 
+interface AlchemyNFTData {
+    contract?: { address?: string; name?: string; symbol?: string }
+    tokenId?: string
+    id?: { tokenId?: string }
+    raw?: { metadata?: Record<string, unknown> }
+    metadata?: Record<string, unknown>
+    name?: string
+    description?: string
+    image?: { cachedUrl?: string; originalUrl?: string }
+    collection?: { name?: string }
+}
+
 export function useNFTs(chainId: number = 1) {
     const { address } = useAccount()
 
@@ -34,18 +46,18 @@ export function useNFTs(chainId: number = 1) {
             if (!nftData || !nftData.ownedNfts) return []
 
             // Parse NFT data from Alchemy REST API response
-            const nfts: NFT[] = nftData.ownedNfts.map((nft: any) => {
+            const nfts: NFT[] = nftData.ownedNfts.map((nft: AlchemyNFTData) => {
                 const metadata = nft.raw?.metadata || nft.metadata || {}
                 const tokenId = nft.tokenId || nft.id?.tokenId
 
                 return {
                     contractAddress: nft.contract?.address || '',
                     tokenId: tokenId || '',
-                    name: metadata.name || nft.name || `#${tokenId}`,
-                    description: metadata.description || nft.description,
-                    image: metadata.image || nft.image?.cachedUrl || nft.image?.originalUrl,
+                    name: (metadata as { name?: string }).name || nft.name || `#${tokenId}`,
+                    description: (metadata as { description?: string }).description || nft.description,
+                    image: (metadata as { image?: string }).image || nft.image?.cachedUrl || nft.image?.originalUrl,
                     collection: nft.contract?.name || nft.contract?.symbol || nft.collection?.name,
-                    attributes: metadata.attributes || [],
+                    attributes: (metadata as { attributes?: Array<{ trait_type: string; value: string }> }).attributes || [],
                 }
             })
 

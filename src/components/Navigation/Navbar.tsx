@@ -128,13 +128,23 @@ export function Navbar() {
                                 </button>
                             )}
 
-                            {/* Mobile Wallet Button */}
-                            <button
-                                onClick={() => setIsWalletHubOpen(true)}
-                                className="md:hidden p-2 glass rounded-lg"
-                            >
-                                <Wallet className="w-5 h-5" />
-                            </button>
+                            {/* Mobile/Tablet Wallet Button */}
+                            {isConnected ? (
+                                <button
+                                    onClick={() => setIsWalletHubOpen(true)}
+                                    className="md:hidden flex items-center gap-1.5 px-3 py-2 glass rounded-lg hover:glass-strong transition-all border border-white/10"
+                                >
+                                    <span className="text-xs">{currentChain.icon}</span>
+                                    <span className="text-xs font-medium mono">{displayName}</span>
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={() => setIsWalletHubOpen(true)}
+                                    className="md:hidden p-2 glass rounded-lg"
+                                >
+                                    <Wallet className="w-5 h-5" />
+                                </button>
+                            )}
 
                             {/* Mobile Menu Toggle */}
                             <button
@@ -150,24 +160,63 @@ export function Navbar() {
                         </div>
                     </div>
 
-                    {/* Mobile Menu */}
+                    {/* Advanced Mobile Menu */}
                     {isMobileMenuOpen && (
                         <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="md:hidden border-t border-white/10 py-4"
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                            className="md:hidden absolute top-full left-0 right-0 mt-2 mx-4"
                         >
-                            <div className="flex flex-col gap-2">
-                                {navLinks.map((link) => (
-                                    <button
-                                        key={link.href}
-                                        onClick={() => handleNavigation(link.href)}
-                                        className="px-4 py-3 rounded-lg text-left text-white/70 hover:text-white hover:bg-white/5 transition-all"
-                                    >
-                                        {link.label}
-                                    </button>
-                                ))}
+                            <div className="glass-strong rounded-2xl p-4 border border-white/20 shadow-2xl backdrop-blur-xl">
+                                {/* Menu Header */}
+                                <div className="flex items-center gap-2 px-3 py-2 mb-3 border-b border-white/10">
+                                    <div className="w-2 h-2 rounded-full bg-[var(--accent-gold)] animate-pulse"></div>
+                                    <span className="text-xs font-bold text-white/60 uppercase tracking-wider">Navigation</span>
+                                </div>
+
+                                {/* Menu Items with Stagger Animation */}
+                                <div className="flex flex-col gap-1">
+                                    {navLinks.map((link, index) => (
+                                        <motion.button
+                                            key={link.href}
+                                            initial={{ opacity: 0, x: -20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: index * 0.05, duration: 0.2 }}
+                                            onClick={() => handleNavigation(link.href)}
+                                            className="group relative px-4 py-3.5 rounded-xl text-left font-medium text-white/80 hover:text-white transition-all overflow-hidden"
+                                        >
+                                            {/* Hover gradient background */}
+                                            <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-gold)]/10 to-[var(--purple-accent)]/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"></div>
+
+                                            {/* Left accent line */}
+                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 bg-gradient-to-b from-[var(--accent-gold)] to-[var(--purple-accent)] group-hover:h-8 transition-all duration-300 rounded-full"></div>
+
+                                            {/* Content */}
+                                            <div className="relative flex items-center justify-between">
+                                                <span className="group-hover:translate-x-2 transition-transform duration-300">
+                                                    {link.label}
+                                                </span>
+                                                <svg
+                                                    className="w-4 h-4 text-[var(--accent-gold)] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                </svg>
+                                            </div>
+                                        </motion.button>
+                                    ))}
+                                </div>
+
+                                {/* Menu Footer with Decorative Elements */}
+                                <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-center gap-2">
+                                    <div className="h-px w-12 bg-gradient-to-r from-transparent via-[var(--accent-gold)]/50 to-transparent"></div>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)]/50"></div>
+                                    <div className="h-px w-12 bg-gradient-to-r from-transparent via-[var(--accent-gold)]/50 to-transparent"></div>
+                                </div>
                             </div>
                         </motion.div>
                     )}

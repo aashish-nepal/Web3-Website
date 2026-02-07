@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import { getTokenPrices, getTokenId, TOKEN_ID_MAP } from '../lib/api/coingecko'
+import { getTokenPrices, getTokenId } from '../lib/api/coingecko'
 
 /**
  * Hook to fetch real-time token prices

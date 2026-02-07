@@ -1,6 +1,6 @@
 'use client'
 
-import { useConnect, useDisconnect } from 'wagmi'
+import { useConnect, useDisconnect, type Connector } from 'wagmi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Copy, ExternalLink, Check, Loader2 } from 'lucide-react'
 import { useState } from 'react'
@@ -34,11 +34,9 @@ export function WalletHub({ isOpen, onClose }: WalletHubProps) {
     const {
         address,
         ensName,
-        displayName,
         isConnected,
         formattedBalance,
         balanceSymbol,
-        currentChain,
         explorerUrl,
         connectorName,
     } = useWeb3()
@@ -51,7 +49,7 @@ export function WalletHub({ isOpen, onClose }: WalletHubProps) {
      * Handle wallet connection
      * Shows loading state and success animation
      */
-    const handleConnect = async (connector: any) => {
+    const handleConnect = async (connector: Connector) => {
         setConnectingId(connector.id)
         try {
             await connect({ connector })

@@ -25,6 +25,11 @@ export interface TokenBalance {
     balance?: number
 }
 
+interface AlchemyTokenBalance {
+    contractAddress: string
+    tokenBalance: string
+}
+
 export function useTokenBalances(chainId: number = 1) {
     const { address } = useAccount()
 
@@ -39,8 +44,8 @@ export function useTokenBalances(chainId: number = 1) {
             // Fetch metadata and prices for each token
             const enrichedBalances = await Promise.all(
                 balances.tokenBalances
-                    .filter((token: any) => token.tokenBalance !== '0x0')
-                    .map(async (token: any) => {
+                    .filter((token: AlchemyTokenBalance) => token.tokenBalance !== '0x0')
+                    .map(async (token: AlchemyTokenBalance) => {
                         try {
                             // Get token metadata
                             const metadata = await getTokenMetadata(

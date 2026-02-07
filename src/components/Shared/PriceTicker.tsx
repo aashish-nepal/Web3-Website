@@ -26,26 +26,26 @@ export function PriceTicker() {
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            className="glass rounded-xl p-4 border border-white/10 overflow-hidden"
+            className="glass rounded-lg sm:rounded-xl p-3 sm:p-4 border border-white/10 overflow-hidden"
         >
-            <div className="flex items-center gap-8 overflow-x-auto scrollbar-hide">
+            <div className="flex items-center gap-4 sm:gap-6 md:gap-8 overflow-x-auto scrollbar-hide">
                 {prices.map((token) => {
                     const isPositive = token.change24h >= 0
 
                     return (
                         <div
                             key={token.id}
-                            className="flex items-center gap-3 min-w-fit"
+                            className="flex items-center gap-2 sm:gap-3 min-w-fit"
                         >
-                            <div className="font-bold text-white/80">{token.symbol}</div>
-                            <div className="font-medium neon-text-gold">
+                            <div className="font-bold text-sm sm:text-base text-white/80">{token.symbol}</div>
+                            <div className="font-medium text-sm sm:text-base neon-text-gold">
                                 ${token.price.toLocaleString('en-US', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
                                 })}
                             </div>
-                            <div className={`flex items-center gap-1 text-sm ${isPositive ? 'text-green-400' : 'text-red-400'}`}>
-                                {isPositive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                            <div className={`flex items-center gap-0.5 sm:gap-1 text-xs sm:text-sm ${isPositive ? 'text-green-400' : 'text-red-400'}`}>
+                                {isPositive ? <TrendingUp className="w-2.5 h-2.5 sm:w-3 sm:h-3" /> : <TrendingDown className="w-2.5 h-2.5 sm:w-3 sm:h-3" />}
                                 {isPositive ? '+' : ''}{token.change24h.toFixed(2)}%
                             </div>
                         </div>
