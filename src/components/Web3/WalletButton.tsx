@@ -16,6 +16,8 @@ import {
     GenericWalletIcon
 } from '@/components/icons/WalletIcons'
 import { WalletInstallModal } from './WalletInstallModal'
+import { DisconnectModal } from './DisconnectModal'
+import { DisconnectToast } from './DisconnectToast'
 
 // Priority wallets that always show on desktop
 const PRIORITY_WALLETS = [
@@ -80,6 +82,8 @@ export function WalletButton() {
         isOpen: boolean
         wallet: typeof PRIORITY_WALLETS[number] | null
     }>({ isOpen: false, wallet: null })
+    const [showDisconnectModal, setShowDisconnectModal] = useState(false)
+    const [showDisconnectToast, setShowDisconnectToast] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
 
     // Close dropdown on outside click
@@ -232,14 +236,74 @@ export function WalletButton() {
 
     if (isConnected && address) {
         return (
-            <button
-                onClick={() => disconnect()}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#D4AF37]/20 to-[#FFD700]/20 border border-[#D4AF37]/30 hover:border-[#D4AF37]/50 transition-all"
-            >
-                <span className="text-sm font-medium">
-                    {address.slice(0, 6)}...{address.slice(-4)}
-                </span>
-            </button>
+            <>
+                <motion.button
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    onClick={() => setShowDisconnectModal(true)}
+                    className="group relative px-4 py-2.5 rounded-xl transition-all overflow-hidden"
+                    style={{
+                        background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(138, 43, 226, 0.1) 100%), rgba(0, 0, 0, 0.4)',
+                        backdropFilter: 'blur(12px)',
+                        border: '1px solid rgba(212, 175, 55, 0.3)',
+                    }}
+                >
+                    {/* Animated background gradient */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#D4AF37]/20 via-[#8A2BE2]/20 to-[#D4AF37]/20 animate-pulse" />
+                    </div>
+
+                    <div className="relative flex items-center gap-3">
+                        {/* Connection Status Indicator */}
+                        <div className="flex items-center gap-2">
+                            <div className="relative">
+                                {/* Pulsing ring */}
+                                <div className="absolute inset-0 rounded-full bg-emerald-500/30 animate-ping" />
+                                {/* Solid dot */}
+                                <div className="relative w-2 h-2 rounded-full bg-emerald-400 shadow-lg shadow-emerald-500/50" />
+                            </div>
+                            <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider">
+                                Connected
+                            </span>
+                        </div>
+
+                        {/* Divider */}
+                        <div className="w-px h-4 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+
+                        {/* Wallet Address */}
+                        <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gradient-to-r from-[#D4AF37]/10 to-[#FFD700]/10 border border-[#D4AF37]/20">
+                                <span className="text-xs font-mono font-bold text-white">
+                                    {address.slice(0, 6)}
+                                </span>
+                                <span className="text-xs font-mono text-white/40">•••</span>
+                                <span className="text-xs font-mono font-bold text-white">
+                                    {address.slice(-4)}
+                                </span>
+                            </div>
+
+                            {/* Chevron indicator */}
+                            <ChevronDown className="w-3.5 h-3.5 text-white/60 group-hover:text-white transition-colors" />
+                        </div>
+                    </div>
+
+                    {/* Hover glow effect */}
+                    <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#D4AF37]/10 to-[#8A2BE2]/10 blur-xl" />
+                    </div>
+                </motion.button>
+
+                {/* Disconnect Confirmation Modal */}
+                <DisconnectModal
+                    isOpen={showDisconnectModal}
+                    onClose={() => setShowDisconnectModal(false)}
+                    onConfirm={() => {
+                        disconnect()
+                        setShowDisconnectToast(true)
+                    }}
+                    walletAddress={address}
+                />
+            </>
         )
     }
 
@@ -428,6 +492,12 @@ export function WalletButton() {
                     installUrl={installModal.wallet.installUrl}
                 />
             )}
+
+            {/* Disconnect Success Toast */}
+            <DisconnectToast
+                isVisible={showDisconnectToast}
+                onClose={() => setShowDisconnectToast(false)}
+            />
         </>
     )
 }

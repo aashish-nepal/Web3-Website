@@ -33,11 +33,11 @@ export const config = createConfig({
         }),
     ],
     transports: {
-        [mainnet.id]: http(),
-        [polygon.id]: http(),
-        [arbitrum.id]: http(),
-        [optimism.id]: http(),
-        [base.id]: http(),
+        [mainnet.id]: http('https://eth.llamarpc.com'),
+        [polygon.id]: http('https://polygon.llamarpc.com'),
+        [arbitrum.id]: http('https://arbitrum.llamarpc.com'),
+        [optimism.id]: http('https://optimism.llamarpc.com'),
+        [base.id]: http('https://base.llamarpc.com'),
     },
     ssr: true,
 })
