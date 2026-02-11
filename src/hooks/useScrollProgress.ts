@@ -30,7 +30,7 @@ export function useScrollProgress() {
     })
     const lastScrollY = useRef(0)
     const lastTime = useRef(0)
-    const rafId = useRef<number>()
+    const rafId = useRef<number | undefined>(undefined)
     const isInViewRef = useRef(false)
 
     const updateScrollData = useCallback(() => {
@@ -113,7 +113,7 @@ export function useScrollProgress() {
         }
 
         window.addEventListener('scroll', handleScroll, { passive: true })
-        
+
         // Initial call
         updateScrollData()
 
