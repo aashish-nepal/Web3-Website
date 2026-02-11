@@ -62,8 +62,8 @@ export default function Home() {
         <section id="home" className="py-26 md:py-24 lg:py-32 flex items-center justify-center relative min-h-screen md:min-h-0">
           {/* Animated Background Blobs - Now enhanced with new animations */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-1/4 -left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#D4AF37]/20 rounded-full blur-[128px] animate-float-slow" />
-            <div className="absolute bottom-1/4 -right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#6B4E9A]/20 rounded-full blur-[128px] animate-float-slow" style={{ animationDelay: '1s' }} />
+            <div className="absolute top-1/4 -left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#D4AF37]/20 rounded-full blur-[64px] animate-float-slow" />
+            <div className="absolute bottom-1/4 -right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[#6B4E9A]/20 rounded-full blur-[64px] animate-float-slow" style={{ animationDelay: '1s' }} />
           </div>
 
           <div className="container mx-auto px-4 sm:px-6 relative z-10">
@@ -389,8 +389,8 @@ export default function Home() {
           <section id="dashboard" className="py-16  md:py-24 lg:py-32 relative overflow-hidden">
             {/* Animated Background Elements */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--accent-gold)]/10 rounded-full blur-[150px] animate-float-slow" />
-              <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--purple-accent)]/10 rounded-full blur-[150px] animate-float-slow" style={{ animationDelay: '2s' }} />
+              <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--accent-gold)]/10 rounded-full blur-[80px] animate-float-slow" />
+              <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--purple-accent)]/10 rounded-full blur-[80px] animate-float-slow" style={{ animationDelay: '2s' }} />
               <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-px bg-gradient-to-r from-transparent via-[var(--accent-gold)]/20 to-transparent" />
             </div>
 
@@ -636,8 +636,8 @@ export default function Home() {
         <section id="features" className="py-16 md:py-24 lg:py-32 relative overflow-hidden">
           {/* Background Effects */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--accent-gold)]/5 rounded-full blur-[150px] animate-float-slow"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--purple-accent)]/5 rounded-full blur-[150px] animate-float-slow" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--accent-gold)]/5 rounded-full blur-[80px] animate-float-slow"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--purple-accent)]/5 rounded-full blur-[80px] animate-float-slow" style={{ animationDelay: '2s' }}></div>
           </div>
 
           <div className="container mx-auto px-4 sm:px-6 relative z-10">
@@ -994,8 +994,8 @@ export default function Home() {
         <section id="metrics" className="py-32 relative overflow-hidden">
           {/* Background Effects */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--accent-gold)]/5 rounded-full blur-[150px] animate-float-slow"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--purple-accent)]/5 rounded-full blur-[150px] animate-float-slow" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--accent-gold)]/5 rounded-full blur-[80px] animate-float-slow"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--purple-accent)]/5 rounded-full blur-[80px] animate-float-slow" style={{ animationDelay: '2s' }}></div>
           </div>
 
           <div className="container mx-auto px-6 relative z-10">
@@ -1187,8 +1187,8 @@ export default function Home() {
         <section id="roadmap" className="py-32 relative overflow-hidden">
           {/* Background Effects */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--accent-gold)]/5 rounded-full blur-[150px] animate-float-slow"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--purple-accent)]/5 rounded-full blur-[150px] animate-float-slow" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--accent-gold)]/5 rounded-full blur-[80px] animate-float-slow"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--purple-accent)]/5 rounded-full blur-[80px] animate-float-slow" style={{ animationDelay: '2s' }}></div>
           </div>
 
           <div className="container mx-auto px-6 relative z-10">
@@ -1415,8 +1415,8 @@ export default function Home() {
         <footer className="py-16 md:py-24 lg:py-32 relative overflow-hidden border-t border-[var(--accent-gold)]/20">
           {/* Animated Background Effects */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--accent-gold)]/5 rounded-full blur-[150px] animate-float-slow"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--purple-accent)]/5 rounded-full blur-[150px] animate-float-slow" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--accent-gold)]/5 rounded-full blur-[80px] animate-float-slow"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--purple-accent)]/5 rounded-full blur-[80px] animate-float-slow" style={{ animationDelay: '2s' }}></div>
             {/* Scan line effect */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--accent-gold)]/5 to-transparent h-32 animate-scan-line"></div>
           </div>
