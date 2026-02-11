@@ -103,14 +103,26 @@ section {
     animation: none !important;
   }
 
-  /* Reduce blur intensity for better performance */
-  [class*="blur-\\[150px\\]"],
-  [class*="blur-\\[128px\\]"] {
-    filter: blur(60px) !important;
+  /* Disable blur effects on mobile/tablet for crisp rendering */
+  [class*="blur-[150px]"],
+  [class*="blur-[128px]"],
+  [class*="blur-[80px]"],
+  [class*="blur-[64px]"],
+  [class*="blur-3xl"],
+  [class*="blur-2xl"],
+  [class*="blur-xl"],
+  [class*="blur-lg"],
+  [class*="blur-md"],
+  [class*="blur-sm"] {
+    filter: none !important;
+    /* Remove blur but keep content visible */
   }
 
-  [class*="blur-3xl"] {
-    filter: blur(32px) !important;
+  /* Hide decorative background blur orbs only */
+  .pointer-events-none [class*="blur-"],
+  [class*="pointer-events-none"] [class*="blur-"] {
+    opacity: 0 !important;
+    /* Hide decorative background elements */
   }
 }
 
@@ -148,15 +160,22 @@ section {
   border: 1px solid rgba(212, 175, 55, 0.15);
 }
 
-/* Remove expensive backdrop-filter on mobile */
+/* Remove expensive backdrop-filter on mobile and tablet */
 @media (max-width: 768px) {
 
+  /* Disable glassmorphism classes */
   .glass,
   .glass-strong,
   .glass-ultra {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     background: rgba(20, 27, 61, 0.95);
+  }
+
+  /* Disable all Tailwind backdrop-blur utilities */
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }
 
