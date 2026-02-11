@@ -58,6 +58,8 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
   overflow-x: hidden;
+  /* Optimize scroll performance */
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -67,6 +69,29 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  /* Optimize rendering performance */
+  text-rendering: optimizeSpeed;
+}
+
+/* ===== Scroll Performance Optimizations ===== */
+/* Apply containment to major sections for better scroll performance */
+section {
+  contain: layout style paint;
+}
+
+/* Optimize transforms for scroll animations */
+[style*="transform"] {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Remove will-change after animation completes to free resources */
+@media (hover: hover) {
+  [style*="transform"]:not(:hover) {
+    will-change: auto;
+  }
 }
 
 /* ===== Glassmorphism Utilities ===== */

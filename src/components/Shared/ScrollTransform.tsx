@@ -4,13 +4,13 @@ import { ReactNode } from 'react'
 import { useScrollProgress } from '@/hooks/useScrollProgress'
 
 /**
- * ScrollTransform - Dynamic transforms based on scroll position
+ * ScrollTransform - Optimized dynamic transforms based on scroll position
  * 
  * Features:
  * - Scale, rotate, skew based on scroll
- * - Smooth interpolation
- * - Configurable ranges
- * - GPU accelerated
+ * - RAF-driven smooth interpolation
+ * - Enhanced GPU acceleration
+ * - Optimized performance
  */
 
 interface ScrollTransformProps {
@@ -37,9 +37,9 @@ export function ScrollTransform({
         return start + (end - start) * t
     }
 
-    // Build transform string
+    // Build optimized transform string
     const buildTransform = () => {
-        const transforms: string[] = []
+        const transforms: string[] = ['translate3d(0, 0, 0)'] // Force GPU acceleration
 
         if (scale) {
             const scaleValue = lerp(scale[0], scale[1], progress)
@@ -62,8 +62,11 @@ export function ScrollTransform({
     const style = {
         transform: buildTransform(),
         opacity: opacity ? lerp(opacity[0], opacity[1], progress) : 1,
-        transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
         willChange: 'transform, opacity',
+        backfaceVisibility: 'hidden' as const,
+        WebkitBackfaceVisibility: 'hidden' as const,
+        WebkitFontSmoothing: 'antialiased' as const,
+        contain: 'layout style paint' as const,
     }
 
     return (

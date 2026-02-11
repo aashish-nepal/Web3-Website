@@ -4,13 +4,13 @@ import { ReactNode } from 'react'
 import { useScrollProgress } from '@/hooks/useScrollProgress'
 
 /**
- * ParallaxSection - Scroll-based parallax container
+ * ParallaxSection - Optimized scroll-based parallax container
  * 
  * Features:
- * - Vertical parallax effect
+ * - Ultra-smooth vertical parallax effect
+ * - RAF-driven updates (no CSS transitions)
  * - Configurable speed
- * - Smooth transforms
- * - GPU accelerated
+ * - Enhanced GPU acceleration
  */
 
 interface ParallaxSectionProps {
@@ -34,9 +34,12 @@ export function ParallaxSection({
             ref={elementRef}
             className={`relative ${className}`}
             style={{
-                transform: `translateY(${offset}px)`,
-                transition: 'transform 0.1s ease-out',
+                transform: `translate3d(0, ${offset}px, 0)`,
                 willChange: 'transform',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                WebkitFontSmoothing: 'antialiased',
+                contain: 'layout style paint',
             }}
         >
             {children}

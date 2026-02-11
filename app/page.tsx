@@ -283,7 +283,7 @@ export default function Home() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w mx-auto">
                 {/* Stat Card 1 - TVL */}
-                <ScrollReveal animation="slide-up" delay={0.5}>
+                <ScrollReveal animation="slide-up" delay={0.1}>
                   <div className="group relative">
                     {/* Animated border gradient */}
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--accent-gold)] to-[var(--accent-light-gold)] rounded-xl sm:rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500 animate-pulse-ring"></div>
@@ -312,7 +312,7 @@ export default function Home() {
                 </ScrollReveal>
 
                 {/* Stat Card 2 - Users */}
-                <ScrollReveal animation="slide-up" delay={0.6}>
+                <ScrollReveal animation="slide-up" delay={0.2}>
                   <div className="group relative">
                     {/* Animated border gradient */}
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--purple-accent)] to-[#8B5FBF] rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500 animate-pulse-ring" style={{ animationDelay: '0.5s' }}></div>
@@ -341,7 +341,7 @@ export default function Home() {
                 </ScrollReveal>
 
                 {/* Stat Card 3 - Chains */}
-                <ScrollReveal animation="slide-up" delay={0.7}>
+                <ScrollReveal animation="slide-up" delay={0.3}>
                   <div className="group relative">
                     {/* Animated border gradient */}
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--accent-gold)] via-[var(--purple-accent)] to-[var(--accent-gold)] rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500 animate-pulse-ring" style={{ animationDelay: '1s' }}></div>
@@ -1412,38 +1412,38 @@ export default function Home() {
         </section>
 
         {/* Footer / CTA Section - Ultra Premium Design */}
-        <footer className="py-32 relative overflow-hidden border-t border-[var(--accent-gold)]/20">
+        <footer className="py-16 md:py-24 lg:py-32 relative overflow-hidden border-t border-[var(--accent-gold)]/20">
           {/* Animated Background Effects */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--accent-gold)]/5 rounded-full blur-[150px] animate-float-slow"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[var(--purple-accent)]/5 rounded-full blur-[150px] animate-float-slow" style={{ animationDelay: '2s' }}></div>
+            <div className="absolute top-1/4 left-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--accent-gold)]/5 rounded-full blur-[150px] animate-float-slow"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-64 md:w-96 h-64 md:h-96 bg-[var(--purple-accent)]/5 rounded-full blur-[150px] animate-float-slow" style={{ animationDelay: '2s' }}></div>
             {/* Scan line effect */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--accent-gold)]/5 to-transparent h-32 animate-scan-line"></div>
           </div>
 
-          <div className="container mx-auto px-6 relative z-10">
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
             {/* Premium CTA Badge */}
-            <div className="text-center mb-20">
+            <div className="text-center mb-12 md:mb-16 lg:mb-20">
               {/* 3D Badge Container */}
-              <div className="max-w-7xl mx-auto mb-12 relative group/cta" style={{ perspective: '1000px' }}>
-                <div className="relative px-16 py-8 bg-gradient-to-r from-[var(--accent-gold)]/15 via-[var(--purple-accent)]/15 to-[var(--accent-gold)]/15 backdrop-blur-md border-2 border-[var(--accent-gold)]/40 rounded-3xl transform group-hover/cta:rotateX-2 transition-transform duration-700">
+              <div className="max-w-7xl mx-auto mb-8 md:mb-12 relative group/cta" style={{ perspective: '1000px' }}>
+                <div className="relative px-6 sm:px-10 md:px-16 py-6 sm:py-7 md:py-8 bg-gradient-to-r from-[var(--accent-gold)]/15 via-[var(--purple-accent)]/15 to-[var(--accent-gold)]/15 backdrop-blur-md border-2 border-[var(--accent-gold)]/40 rounded-2xl sm:rounded-3xl transform group-hover/cta:rotateX-2 transition-transform duration-700">
                   {/* Holographic shimmer effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/cta:translate-x-full transition-transform duration-1500 rounded-3xl"></div>
 
                   {/* Animated border glow */}
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--accent-gold)] via-[var(--purple-accent)] to-[var(--accent-gold)] rounded-3xl opacity-0 group-hover/cta:opacity-30 blur-lg transition-opacity duration-700 animate-gradient-xy"></div>
 
-                  <div className="flex flex-col items-center gap-6 relative z-10">
-                    {/* Top accent line */}
-                    <div className="flex items-center gap-2">
-                      <div className="w-12 h-0.5 bg-gradient-to-r from-transparent to-[var(--accent-gold)]"></div>
+                  <div className="flex flex-col items-center gap-4 sm:gap-5 md:gap-6 relative z-10">
+                    {/* Top accent line - Hidden on mobile */}
+                    <div className="hidden sm:flex items-center gap-2">
+                      <div className="w-8 md:w-12 h-0.5 bg-gradient-to-r from-transparent to-[var(--accent-gold)]"></div>
                       <div className="w-2 h-2 rounded-full bg-[var(--accent-gold)] animate-pulse"></div>
-                      <div className="w-12 h-0.5 bg-gradient-to-l from-transparent to-[var(--accent-gold)]"></div>
+                      <div className="w-8 md:w-12 h-0.5 bg-gradient-to-l from-transparent to-[var(--accent-gold)]"></div>
                     </div>
 
                     {/* Main text with split gradient */}
                     <div className="relative">
-                      <h2 className="text-4xl md:text-5xl lg:text-7xl font-black uppercase text-center">
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black uppercase text-center leading-tight">
                         <span className="bg-gradient-to-r from-[var(--accent-gold)] via-yellow-300 to-[var(--accent-gold)] bg-clip-text text-transparent">Ready to </span>
                         <span className="bg-gradient-to-r from-[var(--purple-accent)] via-blue-400 to-[var(--purple-accent)] bg-clip-text text-transparent">Get Started</span>
                         <span className="bg-gradient-to-r from-[var(--accent-gold)] via-yellow-300 to-[var(--accent-gold)] bg-clip-text text-transparent">?</span>
@@ -1453,41 +1453,41 @@ export default function Home() {
                     </div>
 
                     {/* Description */}
-                    <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto">
+                    <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/70 max-w-3xl mx-auto px-4">
                       Connect your wallet and experience the future of Web3 with our ultra-premium dashboard
                     </p>
 
                     {/* Enhanced CTA Button */}
-                    <div className="relative group/btn mt-4">
+                    <div className="relative group/btn mt-2 sm:mt-3 md:mt-4">
                       {/* Button glow */}
                       <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent-gold)] via-yellow-400 to-[var(--accent-gold)] rounded-2xl opacity-50 group-hover/btn:opacity-100 blur-lg transition-opacity duration-500 animate-gradient-xy"></div>
 
                       <MagneticButton
                         href="#dashboard"
                         strength={0.4}
-                        className="relative inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-[var(--accent-gold)] via-yellow-400 to-[var(--accent-gold)] rounded-2xl font-black text-lg text-black shadow-[0_0_40px_rgba(212,175,55,0.6)] transition-all hover:scale-105 ripple-effect gpu-accelerated border-2 border-yellow-300/50"
+                        className="relative inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 bg-gradient-to-r from-[var(--accent-gold)] via-yellow-400 to-[var(--accent-gold)] rounded-xl sm:rounded-2xl font-black text-sm sm:text-base md:text-lg text-black shadow-[0_0_40px_rgba(212,175,55,0.6)] transition-all hover:scale-105 ripple-effect gpu-accelerated border-2 border-yellow-300/50"
                       >
                         <span>Launch Dashboard</span>
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                         </svg>
                       </MagneticButton>
                     </div>
 
-                    {/* Bottom accent line */}
-                    <div className="flex items-center gap-2">
-                      <div className="w-12 h-0.5 bg-gradient-to-r from-transparent to-[var(--accent-gold)]"></div>
+                    {/* Bottom accent line - Hidden on mobile */}
+                    <div className="hidden sm:flex items-center gap-2">
+                      <div className="w-8 md:w-12 h-0.5 bg-gradient-to-r from-transparent to-[var(--accent-gold)]"></div>
                       <div className="w-2 h-2 rounded-full bg-[var(--accent-gold)] animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                      <div className="w-12 h-0.5 bg-gradient-to-l from-transparent to-[var(--accent-gold)]"></div>
+                      <div className="w-8 md:w-12 h-0.5 bg-gradient-to-l from-transparent to-[var(--accent-gold)]"></div>
                     </div>
                   </div>
                 </div>
 
-                {/* Enhanced corner accents with animation */}
-                <div className="absolute -top-2 -left-2 w-6 h-6 border-t-2 border-l-2 border-[var(--accent-gold)] group-hover/cta:w-8 group-hover/cta:h-8 transition-all duration-500"></div>
-                <div className="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-[var(--accent-gold)] group-hover/cta:w-8 group-hover/cta:h-8 transition-all duration-500"></div>
-                <div className="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-[var(--accent-gold)] group-hover/cta:w-8 group-hover/cta:h-8 transition-all duration-500"></div>
-                <div className="absolute -bottom-2 -right-2 w-6 h-6 border-b-2 border-r-2 border-[var(--accent-gold)] group-hover/cta:w-8 group-hover/cta:h-8 transition-all duration-500"></div>
+                {/* Enhanced corner accents with animation - Hidden on mobile */}
+                <div className="hidden sm:block absolute -top-2 -left-2 w-4 sm:w-6 h-4 sm:h-6 border-t-2 border-l-2 border-[var(--accent-gold)] group-hover/cta:w-6 group-hover/cta:h-6 sm:group-hover/cta:w-8 sm:group-hover/cta:h-8 transition-all duration-500"></div>
+                <div className="hidden sm:block absolute -top-2 -right-2 w-4 sm:w-6 h-4 sm:h-6 border-t-2 border-r-2 border-[var(--accent-gold)] group-hover/cta:w-6 group-hover/cta:h-6 sm:group-hover/cta:w-8 sm:group-hover/cta:h-8 transition-all duration-500"></div>
+                <div className="hidden sm:block absolute -bottom-2 -left-2 w-4 sm:w-6 h-4 sm:h-6 border-b-2 border-l-2 border-[var(--accent-gold)] group-hover/cta:w-6 group-hover/cta:h-6 sm:group-hover/cta:w-8 sm:group-hover/cta:h-8 transition-all duration-500"></div>
+                <div className="hidden sm:block absolute -bottom-2 -right-2 w-4 sm:w-6 h-4 sm:h-6 border-b-2 border-r-2 border-[var(--accent-gold)] group-hover/cta:w-6 group-hover/cta:h-6 sm:group-hover/cta:w-8 sm:group-hover/cta:h-8 transition-all duration-500"></div>
               </div>
             </div>
 
@@ -1496,136 +1496,142 @@ export default function Home() {
               {/* Holographic divider line */}
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--accent-gold)] to-transparent"></div>
 
-              <div className="pt-16">
+              <div className="pt-8 md:pt-12 lg:pt-16">
                 {/* Main Footer Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 mb-12">
-                  {/* Brand Section */}
-                  <div className="lg:col-span-2">
-                    <div className="flex flex-col gap-6">
-                      {/* Logo */}
-                      <div className="flex items-center gap-3 group">
-                        <div className="relative">
-                          <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-gold)] to-[var(--purple-accent)] blur-lg opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
-                          <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--accent-gold)] via-yellow-400 to-[var(--purple-accent)] flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.4)]">
-                            <span className="text-black font-black text-xl">W3</span>
+                <div className="mb-8 md:mb-10 lg:mb-12">
+                  {/* Mobile/Tablet: Stacked Layout, Desktop: 6-Column Grid */}
+                  <div className="flex flex-col lg:grid lg:grid-cols-6 gap-8 md:gap-10 lg:gap-12">
+                    {/* Brand Section */}
+                    <div className="lg:col-span-2">
+                      <div className="flex flex-col gap-6">
+                        {/* Logo */}
+                        <div className="flex items-center gap-3 group">
+                          <div className="relative">
+                            <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-gold)] to-[var(--purple-accent)] blur-lg opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--accent-gold)] via-yellow-400 to-[var(--purple-accent)] flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.4)]">
+                              <span className="text-black font-black text-xl">W3</span>
+                            </div>
+                          </div>
+                          <div>
+                            <div className="font-black text-2xl bg-gradient-to-r from-[var(--accent-gold)] via-yellow-300 to-[var(--accent-gold)] bg-clip-text text-transparent">
+                              Web3 OS
+                            </div>
+                            <div className="text-xs text-white/40 font-medium">The Future of DeFi</div>
                           </div>
                         </div>
-                        <div>
-                          <div className="font-black text-2xl bg-gradient-to-r from-[var(--accent-gold)] via-yellow-300 to-[var(--accent-gold)] bg-clip-text text-transparent">
-                            Web3 OS
-                          </div>
-                          <div className="text-xs text-white/40 font-medium">The Future of DeFi</div>
-                        </div>
-                      </div>
 
-                      {/* Description */}
-                      <p className="text-sm text-white/60 leading-relaxed">
-                        The most advanced Web3 operating system for managing your digital assets, DeFi protocols, and blockchain interactions.
-                      </p>
+                        {/* Description */}
+                        <p className="text-sm text-white/60 leading-relaxed">
+                          The most advanced Web3 operating system for managing your digital assets, DeFi protocols, and blockchain interactions.
+                        </p>
 
-                      {/* Newsletter Signup */}
-                      <div className="space-y-3">
-                        <h4 className="text-sm font-bold text-white/80 uppercase tracking-wider">Stay Updated</h4>
-                        <div className="relative group/input">
-                          <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--accent-gold)] to-[var(--purple-accent)] rounded-xl opacity-0 group-hover/input:opacity-20 blur transition-opacity duration-300"></div>
-                          <div className="relative flex gap-2">
-                            <input
-                              type="email"
-                              placeholder="Enter your email"
-                              className="flex-1 px-4 py-2.5 rounded-xl glass border border-white/10 focus:border-[var(--accent-gold)]/40 bg-white/5 text-white text-sm placeholder:text-white/40 outline-none transition-all duration-300"
-                            />
-                            <button className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[var(--accent-gold)] to-yellow-500 text-black font-bold text-sm hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300">
-                              Subscribe
-                            </button>
+                        {/* Newsletter Signup */}
+                        <div className="space-y-3">
+                          <h4 className="text-xs sm:text-sm font-bold text-white/80 uppercase tracking-wider">Stay Updated</h4>
+                          <div className="relative group/input">
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--accent-gold)] to-[var(--purple-accent)] rounded-xl opacity-0 group-hover/input:opacity-20 blur transition-opacity duration-300"></div>
+                            <div className="relative flex flex-col sm:flex-row gap-2">
+                              <input
+                                type="email"
+                                placeholder="Enter your email"
+                                className="flex-1 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl glass border border-white/10 focus:border-[var(--accent-gold)]/40 bg-white/5 text-white text-xs sm:text-sm placeholder:text-white/40 outline-none transition-all duration-300"
+                              />
+                              <button className="px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-gradient-to-r from-[var(--accent-gold)] to-yellow-500 text-black font-bold text-xs sm:text-sm hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 whitespace-nowrap">
+                                Subscribe
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Product Links */}
-                  <div>
-                    <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2">
-                      <div className="w-1 h-4 bg-gradient-to-b from-[var(--accent-gold)] to-transparent rounded-full"></div>
-                      Product
-                    </h4>
-                    <ul className="space-y-3">
-                      {['Dashboard', 'Analytics', 'Swap', 'Stake', 'Portfolio', 'NFTs'].map((item) => (
-                        <li key={item}>
-                          <a href={`#${item.toLowerCase()}`} className="text-sm text-white/60 hover:text-[var(--accent-gold)] transition-colors duration-300 flex items-center gap-2 group/link">
-                            <div className="w-1 h-1 rounded-full bg-white/40 group-hover/link:bg-[var(--accent-gold)] transition-colors duration-300"></div>
-                            {item}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    {/* Links Container - 2 Columns on Mobile/Tablet, Individual Columns on Desktop */}
+                    <div className="grid grid-cols-2 lg:contents gap-8 md:gap-10 lg:gap-0">
+                      {/* Product Links */}
+                      <div>
+                        <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2">
+                          <div className="w-1 h-4 bg-gradient-to-b from-[var(--accent-gold)] to-transparent rounded-full"></div>
+                          Product
+                        </h4>
+                        <ul className="space-y-3">
+                          {['Dashboard', 'Analytics', 'Swap', 'Stake', 'Portfolio', 'NFTs'].map((item) => (
+                            <li key={item}>
+                              <a href={`#${item.toLowerCase()}`} className="text-sm text-white/60 hover:text-[var(--accent-gold)] transition-colors duration-300 flex items-center gap-2 group/link">
+                                <div className="w-1 h-1 rounded-full bg-white/40 group-hover/link:bg-[var(--accent-gold)] transition-colors duration-300"></div>
+                                {item}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
 
-                  {/* Resources Links */}
-                  <div>
-                    <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2">
-                      <div className="w-1 h-4 bg-gradient-to-b from-[var(--purple-accent)] to-transparent rounded-full"></div>
-                      Resources
-                    </h4>
-                    <ul className="space-y-3">
-                      {['Documentation', 'API Reference', 'Blog', 'Support', 'Community', 'Tutorials'].map((item) => (
-                        <li key={item}>
-                          <a href={`#${item.toLowerCase()}`} className="text-sm text-white/60 hover:text-[var(--accent-gold)] transition-colors duration-300 flex items-center gap-2 group/link">
-                            <div className="w-1 h-1 rounded-full bg-white/40 group-hover/link:bg-[var(--accent-gold)] transition-colors duration-300"></div>
-                            {item}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                      {/* Resources Links */}
+                      <div>
+                        <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2">
+                          <div className="w-1 h-4 bg-gradient-to-b from-[var(--purple-accent)] to-transparent rounded-full"></div>
+                          Resources
+                        </h4>
+                        <ul className="space-y-3">
+                          {['Documentation', 'API Reference', 'Blog', 'Support', 'Community', 'Tutorials'].map((item) => (
+                            <li key={item}>
+                              <a href={`#${item.toLowerCase()}`} className="text-sm text-white/60 hover:text-[var(--accent-gold)] transition-colors duration-300 flex items-center gap-2 group/link">
+                                <div className="w-1 h-1 rounded-full bg-white/40 group-hover/link:bg-[var(--accent-gold)] transition-colors duration-300"></div>
+                                {item}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
 
-                  {/* Company Links */}
-                  <div>
-                    <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2">
-                      <div className="w-1 h-4 bg-gradient-to-b from-yellow-400 to-transparent rounded-full"></div>
-                      Company
-                    </h4>
-                    <ul className="space-y-3">
-                      {['About Us', 'Careers', 'Press Kit', 'Partners', 'Brand Assets', 'Contact'].map((item) => (
-                        <li key={item}>
-                          <a href={`#${item.toLowerCase()}`} className="text-sm text-white/60 hover:text-[var(--accent-gold)] transition-colors duration-300 flex items-center gap-2 group/link">
-                            <div className="w-1 h-1 rounded-full bg-white/40 group-hover/link:bg-[var(--accent-gold)] transition-colors duration-300"></div>
-                            {item}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                      {/* Company Links */}
+                      <div>
+                        <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2">
+                          <div className="w-1 h-4 bg-gradient-to-b from-yellow-400 to-transparent rounded-full"></div>
+                          Company
+                        </h4>
+                        <ul className="space-y-3">
+                          {['About Us', 'Careers', 'Press Kit', 'Partners', 'Brand Assets', 'Contact'].map((item) => (
+                            <li key={item}>
+                              <a href={`#${item.toLowerCase()}`} className="text-sm text-white/60 hover:text-[var(--accent-gold)] transition-colors duration-300 flex items-center gap-2 group/link">
+                                <div className="w-1 h-1 rounded-full bg-white/40 group-hover/link:bg-[var(--accent-gold)] transition-colors duration-300"></div>
+                                {item}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
 
-                  {/* Legal Links */}
-                  <div>
-                    <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2">
-                      <div className="w-1 h-4 bg-gradient-to-b from-blue-400 to-transparent rounded-full"></div>
-                      Legal
-                    </h4>
-                    <ul className="space-y-3">
-                      {['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'Security', 'Compliance', 'Licenses'].map((item) => (
-                        <li key={item}>
-                          <a href={`#${item.toLowerCase()}`} className="text-sm text-white/60 hover:text-[var(--accent-gold)] transition-colors duration-300 flex items-center gap-2 group/link">
-                            <div className="w-1 h-1 rounded-full bg-white/40 group-hover/link:bg-[var(--accent-gold)] transition-colors duration-300"></div>
-                            {item}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
+                      {/* Legal Links */}
+                      <div>
+                        <h4 className="text-sm font-bold text-white mb-4 uppercase tracking-wider flex items-center gap-2">
+                          <div className="w-1 h-4 bg-gradient-to-b from-blue-400 to-transparent rounded-full"></div>
+                          Legal
+                        </h4>
+                        <ul className="space-y-3">
+                          {['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'Security', 'Compliance', 'Licenses'].map((item) => (
+                            <li key={item}>
+                              <a href={`#${item.toLowerCase()}`} className="text-sm text-white/60 hover:text-[var(--accent-gold)] transition-colors duration-300 flex items-center gap-2 group/link">
+                                <div className="w-1 h-1 rounded-full bg-white/40 group-hover/link:bg-[var(--accent-gold)] transition-colors duration-300"></div>
+                                {item}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-8 border-t border-white/10">
-                  <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="pt-6 md:pt-8 border-t border-white/10">
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
                     {/* Copyright */}
-                    <div className="flex items-center gap-4 text-sm text-white/40">
+                    <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xs sm:text-sm text-white/40 text-center">
                       <span>© 2026 Web3 OS. All rights reserved.</span>
-                      <span className="hidden md:inline">•</span>
+                      <span className="hidden sm:inline">•</span>
                       <div className="flex items-center gap-2">
                         <span>Built with</span>
-                        <svg className="w-4 h-4 text-red-500 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-3 h-3 sm:w-4 sm:h-4 text-red-500 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
                         </svg>
                         <span>by Aashish Nepal</span>
@@ -1633,7 +1639,7 @@ export default function Home() {
                     </div>
 
                     {/* Social Links */}
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
                       {[
                         { name: 'Twitter', icon: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z' },
                         { name: 'GitHub', icon: 'M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z' },
@@ -1644,11 +1650,11 @@ export default function Home() {
                         <a
                           key={social.name}
                           href={`#${social.name.toLowerCase()}`}
-                          className="group/social relative w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center hover:border-[var(--accent-gold)]/40 transition-all duration-300"
+                          className="group/social relative w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl glass border border-white/10 flex items-center justify-center hover:border-[var(--accent-gold)]/40 transition-all duration-300"
                           aria-label={social.name}
                         >
-                          <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--accent-gold)] to-yellow-400 rounded-xl opacity-0 group-hover/social:opacity-20 blur transition-opacity duration-300"></div>
-                          <svg className="w-5 h-5 text-white/60 group-hover/social:text-[var(--accent-gold)] transition-colors duration-300 relative z-10" fill="currentColor" viewBox="0 0 24 24">
+                          <div className="absolute -inset-0.5 bg-gradient-to-r from-[var(--accent-gold)] to-yellow-400 rounded-lg sm:rounded-xl opacity-0 group-hover/social:opacity-20 blur transition-opacity duration-300"></div>
+                          <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white/60 group-hover/social:text-[var(--accent-gold)] transition-colors duration-300 relative z-10" fill="currentColor" viewBox="0 0 24 24">
                             <path d={social.icon} />
                           </svg>
                         </a>

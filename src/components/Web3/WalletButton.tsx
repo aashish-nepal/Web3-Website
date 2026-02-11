@@ -84,7 +84,19 @@ export function WalletButton() {
     }>({ isOpen: false, wallet: null })
     const [showDisconnectModal, setShowDisconnectModal] = useState(false)
     const [showDisconnectToast, setShowDisconnectToast] = useState(false)
+    const [isMobileOrTablet, setIsMobileOrTablet] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
+
+    // Detect mobile/tablet screen size
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsMobileOrTablet(window.innerWidth < 1024) // Below 1024px is mobile/tablet
+        }
+
+        checkScreenSize()
+        window.addEventListener('resize', checkScreenSize)
+        return () => window.removeEventListener('resize', checkScreenSize)
+    }, [])
 
     // Close dropdown on outside click
     useEffect(() => {
@@ -312,10 +324,10 @@ export function WalletButton() {
             <div className="relative" ref={dropdownRef}>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-medium hover:shadow-lg hover:shadow-[#D4AF37]/20 transition-all"
+                    className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#FFD700] text-black font-medium hover:shadow-lg hover:shadow-[#D4AF37]/20 transition-all"
                 >
                     <Wallet className="w-4 h-4" />
-                    <span>Connect Wallet</span>
+                    <span className="text-sm sm:text-base">Connect Wallet</span>
                     <ChevronDown className={cn(
                         "w-4 h-4 transition-transform",
                         isOpen && "rotate-180"
@@ -325,157 +337,245 @@ export function WalletButton() {
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            className="absolute right-0 mt-2 w-[450px] max-h-[600px] overflow-y-auto glass-strong rounded-2xl p-4 shadow-2xl border border-white/10 z-50 wallet-dropdown-scroll"
+                            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="absolute left-1/2 -translate-x-1/2 sm:left-auto sm:right-0 sm:translate-x-0 mt-3 w-[min(360px,calc(100vw-1.5rem))] sm:w-[420px] md:w-[480px] lg:w-[500px] max-h-[80vh] sm:max-h-[85vh] md:max-h-[600px] overflow-hidden rounded-2xl shadow-2xl border z-50"
                             style={{
-                                background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.03) 0%, rgba(138, 43, 226, 0.03) 100%), radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.08) 0%, transparent 50%), rgba(0, 0, 0, 0.6)',
-                                backdropFilter: 'blur(20px)',
+                                background: 'linear-gradient(135deg, rgba(15, 15, 25, 0.98) 0%, rgba(20, 20, 35, 0.98) 100%)',
+                                backdropFilter: 'blur(24px) saturate(180%)',
+                                borderColor: 'rgba(212, 175, 55, 0.2)',
+                                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
                             }}
                         >
-                            {/* Header */}
-                            <div className="flex items-center justify-between mb-4">
-                                <div>
-                                    <h3 className="text-base font-bold text-white">Connect Wallet</h3>
-                                    <p className="text-xs text-white/60 mt-0.5">Choose your wallet</p>
-                                </div>
-                                <button
-                                    onClick={() => setIsOpen(false)}
-                                    className="p-1.5 hover:bg-white/10 rounded-lg transition-colors"
-                                >
-                                    <X className="w-4 h-4" />
-                                </button>
+                            {/* Animated gradient overlay */}
+                            <div className="absolute inset-0 opacity-30 pointer-events-none">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#D4AF37]/20 to-transparent rounded-full blur-3xl animate-pulse" />
+                                <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#8A2BE2]/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
                             </div>
 
-                            {/* Priority Wallets Grid */}
-                            <div className="mb-4">
-                                <p className="text-xs text-white/50 uppercase tracking-wider mb-3 px-1">
-                                    Popular Wallets
-                                </p>
-                                <div className="grid grid-cols-3 gap-2">
-                                    {PRIORITY_WALLETS.map((wallet) => {
-                                        const isInstalled = isWalletInstalled(wallet.id, wallet.detectKey)
-                                        const isLoading = isPending && connectingId === wallet.id
-
-                                        return (
-                                            <button
-                                                key={wallet.id}
-                                                onClick={() => handleWalletClick(wallet)}
-                                                disabled={isPending}
-                                                className={cn(
-                                                    "group relative p-2.5 rounded-lg transition-all border disabled:opacity-50",
-                                                    "flex flex-col items-center gap-1.5",
-                                                    isInstalled
-                                                        ? "glass hover:glass-strong border-white/5 hover:border-[#D4AF37]/40 hover:scale-105"
-                                                        : "glass border-white/5 hover:border-orange-500/40 hover:scale-105"
-                                                )}
-                                            >
-                                                {/* Wallet Icon */}
-                                                <div className={cn(
-                                                    "w-12 h-12 rounded-xl flex items-center justify-center transition-all",
-                                                    isInstalled
-                                                        ? "bg-gradient-to-br from-white/5 to-white/10 group-hover:from-[#D4AF37]/10 group-hover:to-[#FFD700]/10"
-                                                        : "bg-gradient-to-br from-white/5 to-white/10 group-hover:from-orange-500/10 group-hover:to-orange-600/10"
-                                                )}>
-                                                    <div className="scale-110">
-                                                        {wallet.icon}
-                                                    </div>
-                                                </div>
-
-                                                {/* Wallet Name */}
-                                                <div className="flex flex-col items-center gap-0.5 w-full">
-                                                    <span className="text-xs font-semibold text-white text-center">
-                                                        {wallet.name}
-                                                    </span>
-                                                    {!isInstalled ? (
-                                                        <span className="text-[10px] text-orange-400 font-medium">
-                                                            Not installed
-                                                        </span>
-                                                    ) : (
-                                                        <span className="text-[10px] text-[#D4AF37]/80">
-                                                            Ready
-                                                        </span>
-                                                    )}
-                                                </div>
-
-                                                {/* Loading Spinner */}
-                                                {isLoading && (
-                                                    <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm rounded-lg">
-                                                        <Loader2 className="w-5 h-5 animate-spin text-[#D4AF37]" />
-                                                    </div>
-                                                )}
-
-                                                {/* Hover Glow Effect */}
-                                                <div className={cn(
-                                                    "absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none",
-                                                    isInstalled
-                                                        ? "bg-gradient-to-br from-[#D4AF37]/5 to-[#FFD700]/5"
-                                                        : "bg-gradient-to-br from-orange-500/5 to-orange-600/5"
-                                                )} />
-                                            </button>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-
-                            {/* Other Wallets */}
-                            {otherWallets.length > 0 && (
-                                <div className="border-t border-white/10 pt-4">
-                                    <p className="text-xs text-white/50 uppercase tracking-wider mb-3 px-1">
-                                        Other Wallets
-                                    </p>
-                                    <div className="grid grid-cols-3 gap-2">
-                                        {otherWallets.map((connector) => {
-                                            const isLoading = isPending && connectingId === connector.id
-                                            const icon = getWalletIcon(connector)
-                                            const name = getWalletName(connector)
-
-                                            return (
-                                                <button
-                                                    key={connector.id}
-                                                    onClick={() => handleOtherWalletConnect(connector.id)}
-                                                    disabled={isPending}
-                                                    className="group relative p-2.5 rounded-lg glass hover:glass-strong transition-all border border-white/5 hover:border-[#D4AF37]/40 hover:scale-105 disabled:opacity-50 flex flex-col items-center gap-1.5"
-                                                >
-                                                    {/* Wallet Icon */}
-                                                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-white/5 to-white/10 group-hover:from-[#D4AF37]/10 group-hover:to-[#FFD700]/10 flex items-center justify-center transition-all">
-                                                        <div className="scale-100">
-                                                            {icon}
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Wallet Name */}
-                                                    <div className="flex flex-col items-center gap-0.5 w-full">
-                                                        <span className="text-xs font-semibold text-white text-center">
-                                                            {name}
-                                                        </span>
-                                                        <span className="text-[10px] text-[#D4AF37]/80">
-                                                            Available
-                                                        </span>
-                                                    </div>
-
-                                                    {/* Loading Spinner */}
-                                                    {isLoading && (
-                                                        <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm rounded-lg">
-                                                            <Loader2 className="w-5 h-5 animate-spin text-[#D4AF37]" />
-                                                        </div>
-                                                    )}
-
-                                                    {/* Hover Glow Effect */}
-                                                    <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#D4AF37]/5 to-[#FFD700]/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                                                </button>
-                                            )
-                                        })}
+                            {/* Content wrapper with scroll */}
+                            <div className="relative overflow-y-auto max-h-[80vh] sm:max-h-[85vh] md:max-h-[600px] wallet-dropdown-scroll p-4 sm:p-5">
+                                {/* Header */}
+                                <div className="flex items-center justify-between mb-4 sm:mb-5 pb-3 sm:pb-4 border-b border-white/10">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#D4AF37]/20 to-[#FFD700]/20 border border-[#D4AF37]/30 flex items-center justify-center">
+                                            <Wallet className="w-4 h-4 sm:w-5 sm:h-5 text-[#D4AF37]" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-sm sm:text-lg font-bold text-white tracking-tight">Connect Wallet</h3>
+                                            <p className="text-[10px] sm:text-xs text-white/50 mt-0.5">Secure connection</p>
+                                        </div>
                                     </div>
+                                    <button
+                                        onClick={() => setIsOpen(false)}
+                                        className="p-1.5 sm:p-2 hover:bg-white/10 rounded-lg transition-all hover:scale-110 active:scale-95"
+                                    >
+                                        <X className="w-4 h-4 sm:w-5 sm:h-5 text-white/60 hover:text-white transition-colors" />
+                                    </button>
                                 </div>
-                            )}
 
-                            {/* Footer Info */}
-                            <div className="mt-4 pt-3 border-t border-white/10">
-                                <p className="text-[10px] text-white/40 text-center">
-                                    By connecting, you agree to our Terms of Service
-                                </p>
+                                {/* Priority Wallets Grid */}
+                                {!isMobileOrTablet && (
+                                    <div className="mb-4">
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                                            <p className="text-xs text-white/50 uppercase tracking-wider font-semibold">
+                                                Popular Wallets
+                                            </p>
+                                            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                                        </div>
+                                        <div className="grid grid-cols-3 gap-2.5">
+                                            {!isMobileOrTablet && PRIORITY_WALLETS.map((wallet) => {
+                                                const isInstalled = isWalletInstalled(wallet.id, wallet.detectKey)
+                                                const isLoading = isPending && connectingId === wallet.id
+
+                                                return (
+                                                    <button
+                                                        key={wallet.id}
+                                                        onClick={() => handleWalletClick(wallet)}
+                                                        disabled={isPending}
+                                                        className={cn(
+                                                            "group relative p-1.5 sm:p-2.5 rounded-lg transition-all border disabled:opacity-50",
+                                                            "flex flex-col items-center gap-0.5 sm:gap-1.5",
+                                                            isInstalled
+                                                                ? "glass hover:glass-strong border-white/5 hover:border-[#D4AF37]/40 hover:scale-105"
+                                                                : "glass border-white/5 hover:border-orange-500/40 hover:scale-105"
+                                                        )}
+                                                    >
+                                                        {/* Wallet Icon */}
+                                                        <div className={cn(
+                                                            "w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl flex items-center justify-center transition-all",
+                                                            isInstalled
+                                                                ? "bg-gradient-to-br from-white/5 to-white/10 group-hover:from-[#D4AF37]/10 group-hover:to-[#FFD700]/10"
+                                                                : "bg-gradient-to-br from-white/5 to-white/10 group-hover:from-orange-500/10 group-hover:to-orange-600/10"
+                                                        )}>
+                                                            <div className="scale-75 sm:scale-110">
+                                                                {wallet.icon}
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Wallet Name */}
+                                                        <div className="flex flex-col items-center gap-0 sm:gap-0.5 w-full">
+                                                            <span className="text-[10px] sm:text-xs font-semibold text-white text-center line-clamp-1">
+                                                                {wallet.name}
+                                                            </span>
+                                                            {!isInstalled ? (
+                                                                <span className="text-[8px] sm:text-[10px] text-orange-400 font-medium">
+                                                                    Not installed
+                                                                </span>
+                                                            ) : (
+                                                                <span className="text-[8px] sm:text-[10px] text-[#D4AF37]/80">
+                                                                    Ready
+                                                                </span>
+                                                            )}
+                                                        </div>
+
+                                                        {/* Loading Spinner */}
+                                                        {isLoading && (
+                                                            <div className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm rounded-lg">
+                                                                <Loader2 className="w-3.5 h-3.5 sm:w-5 sm:h-5 animate-spin text-[#D4AF37]" />
+                                                            </div>
+                                                        )}
+
+                                                        {/* Hover Glow Effect */}
+                                                        <div className={cn(
+                                                            "absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none",
+                                                            isInstalled
+                                                                ? "bg-gradient-to-br from-[#D4AF37]/5 to-[#FFD700]/5"
+                                                                : "bg-gradient-to-br from-orange-500/5 to-orange-600/5"
+                                                        )} />
+                                                    </button>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Other Wallets */}
+                                {otherWallets.length > 0 && (
+                                    <div className="border-t border-white/10 pt-2 sm:pt-4">
+                                        {!isMobileOrTablet && (
+                                            <p className="text-[9px] sm:text-xs text-white/50 uppercase tracking-wider mb-1.5 sm:mb-3 px-0.5 sm:px-1">
+                                                Other Wallets
+                                            </p>
+                                        )}
+                                        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-1.5 sm:gap-2.5">
+                                            {otherWallets
+                                                .filter(connector => {
+                                                    const id = connector.id?.toLowerCase() || ''
+                                                    const name = connector.name?.toLowerCase() || ''
+                                                    // On mobile/tablet, show only WalletConnect
+                                                    if (isMobileOrTablet) {
+                                                        return id.includes('walletconnect') || name.includes('walletconnect')
+                                                    }
+                                                    // On desktop, show all
+                                                    return true
+                                                })
+                                                .map((connector) => {
+                                                    const isLoading = isPending && connectingId === connector.id
+                                                    const icon = getWalletIcon(connector)
+                                                    const name = getWalletName(connector)
+
+                                                    return (
+                                                        <button
+                                                            key={connector.id}
+                                                            onClick={() => handleOtherWalletConnect(connector.id)}
+                                                            disabled={isPending}
+                                                            className={cn(
+                                                                "group relative overflow-hidden rounded-2xl transition-all duration-300 disabled:opacity-50 border",
+                                                                isMobileOrTablet
+                                                                    ? "p-5 sm:p-6 hover:scale-[1.02] active:scale-[0.98] border-[#D4AF37]/30"
+                                                                    : "p-3 hover:scale-105 border-white/10 hover:border-[#D4AF37]/40"
+                                                            )}
+                                                            style={{
+                                                                background: isMobileOrTablet
+                                                                    ? 'linear-gradient(135deg, rgba(25, 25, 40, 0.9) 0%, rgba(30, 30, 45, 0.9) 100%)'
+                                                                    : 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
+                                                                boxShadow: isMobileOrTablet
+                                                                    ? '0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+                                                                    : '0 4px 12px rgba(0, 0, 0, 0.2)',
+                                                            }}
+                                                        >
+                                                            {/* Animated border gradient */}
+                                                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                                                                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#D4AF37]/10 via-[#FFD700]/10 to-[#D4AF37]/10" />
+                                                            </div>
+
+                                                            <div className={cn(
+                                                                "relative flex items-center",
+                                                                isMobileOrTablet ? "flex-row gap-4" : "flex-col gap-2"
+                                                            )}>
+                                                                {/* Wallet Icon */}
+                                                                <div className={cn(
+                                                                    "rounded-2xl flex items-center justify-center transition-all group-hover:scale-110 border",
+                                                                    isMobileOrTablet
+                                                                        ? "w-14 h-14 sm:w-16 sm:h-16 border-[#D4AF37]/40"
+                                                                        : "w-10 h-10 border-white/10"
+                                                                )}
+                                                                    style={{
+                                                                        background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(255, 215, 0, 0.15) 100%)',
+                                                                        boxShadow: '0 0 20px rgba(212, 175, 55, 0.15)',
+                                                                    }}>
+                                                                    <div className={isMobileOrTablet ? "scale-125" : "scale-100"}>
+                                                                        {icon}
+                                                                    </div>
+                                                                </div>
+
+                                                                {/* Wallet Name */}
+                                                                <div className={cn(
+                                                                    "flex flex-col",
+                                                                    isMobileOrTablet ? "items-start flex-1" : "items-center gap-0.5"
+                                                                )}>
+                                                                    <span className={cn(
+                                                                        "font-bold text-white",
+                                                                        isMobileOrTablet ? "text-base sm:text-lg" : "text-xs"
+                                                                    )}>
+                                                                        {name}
+                                                                    </span>
+                                                                    <div className="flex items-center gap-1.5">
+                                                                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                                                                        <span className={cn(
+                                                                            "text-emerald-400 font-medium",
+                                                                            isMobileOrTablet ? "text-xs sm:text-sm" : "text-[10px]"
+                                                                        )}>
+                                                                            Ready
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+                                                                {/* Arrow icon for mobile */}
+                                                                {isMobileOrTablet && (
+                                                                    <ChevronDown className="w-5 h-5 text-[#D4AF37] -rotate-90 group-hover:translate-x-1 transition-transform" />
+                                                                )}
+                                                            </div>
+
+                                                            {/* Loading Spinner */}
+                                                            {isLoading && (
+                                                                <div className="absolute inset-0 flex items-center justify-center bg-black/70 backdrop-blur-md rounded-2xl">
+                                                                    <Loader2 className={cn(
+                                                                        "animate-spin text-[#D4AF37]",
+                                                                        isMobileOrTablet ? "w-7 h-7 sm:w-8 sm:h-8" : "w-5 h-5"
+                                                                    )} />
+                                                                </div>
+                                                            )}
+
+                                                            {/* Hover Glow Effect */}
+                                                            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#D4AF37]/5 to-[#FFD700]/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                                                        </button>
+                                                    )
+                                                })}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Footer Info */}
+                                <div className="mt-2 sm:mt-4 pt-1.5 sm:pt-3 border-t border-white/10">
+                                    <p className="text-[8px] sm:text-[10px] text-white/40 text-center leading-tight">
+                                        By connecting, you agree to our Terms of Service
+                                    </p>
+                                </div>
                             </div>
                         </motion.div>
                     )}
